@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我们 - Contact Us | 专业光学解决方案 - Professional Optical Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5dc; /* 米黄色背景 */
+        }
+
+        /* 头部样式 */
+        .contact-header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            padding: 100px 0 60px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .contact-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .contact-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 主要内容区域 */
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        /* 联系信息卡片 */
+        .contact-info {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .contact-info h2 {
+            color: #1a237e;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #1a237e;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .info-item:hover {
+            background-color: #f8f9ff;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: #1a237e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .info-icon i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .info-content h3 {
+            color: #1a237e;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .info-content p {
+            color: #666;
+            margin-bottom: 3px;
+        }
+
+        .info-content a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .info-content a:hover {
+            color: #1a237e;
+        }
+
+        /* 联系表单 */
+        .contact-form {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .contact-form h2 {
+            color: #1a237e;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #1a237e;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #1a237e;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: #1a237e;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #283593;
+        }
+
+        /* 地图区域 */
+        .map-section {
+            margin-bottom: 60px;
+        }
+
+        .map-section h2 {
+            text-align: center;
+            color: #1a237e;
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        .map-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: 400px;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* 公司信息 */
+        .company-info {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .company-info h2 {
+            color: #1a237e;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .company-info p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .contact-header {
+                padding: 80px 0 40px;
+            }
+
+            .contact-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .contact-info, .contact-form {
+                padding: 30px 25px;
+            }
+
+            .info-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .info-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+
+        /* 图标样式 */
+        .icon {
+            font-style: normal;
+            font-weight: bold;
+        }
+
+        /* 成功消息 */
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* 语言切换 */
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 5px 10px;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .english {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 语言切换按钮 -->
+    <div class="lang-switch" id="langSwitch">EN</div>
+
+    <!-- 联系页面头部 -->
+    <header class="contact-header">
+        <h1 class="chinese">联系我们</h1>
+        <h1 class="english">Contact Us</h1>
+        <p class="chinese">我们期待与您合作，为您提供专业的光学解决方案</p>
+        <p class="english">We look forward to cooperating with you and providing professional optical solutions</p>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="contact-container">
+        <!-- 联系信息和表单 -->
+        <div class="contact-grid">
+            <!-- 联系信息 -->
+            <div class="contact-info">
+                <h2 class="chinese">联系信息</h2>
+                <h2 class="english">Contact Information</h2>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="icon">📍</i>
+                    </div>
+                    <div class="info-content">
+                        <h3 class="chinese">公司地址</h3>
+                        <h3 class="english">Company Address</h3>
+                        <p class="chinese">上海市浦东新区张江高科技园区</p>
+                        <p class="english">Zhangjiang High-Tech Park, Pudong New Area</p>
+                        <p class="chinese">科苑路XXX号光学大厦A座5层</p>
+                        <p class="english">Floor 5, Building A, Optics Tower, No. XXX Keyuan Road</p>
+                        <p class="chinese">邮编：201210</p>
+                        <p class="english">Postal Code: 201210</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="icon">📞</i>
+                    </div>
+                    <div class="info-content">
+                        <h3 class="chinese">联系电话</h3>
+                        <h3 class="english">Contact Phone</h3>
+                        <p class="chinese">销售咨询：<a href="tel:+86-21-68881234">+86-21-6888 1234</a></p>
+                        <p class="english">Sales: <a href="tel:+86-21-68881234">+86-21-6888 1234</a></p>
+                        <p class="chinese">技术支持：<a href="tel:+86-21-68881235">+86-21-6888 1235</a></p>
+                        <p class="english">Technical Support: <a href="tel:+86-21-68881235">+86-21-6888 1235</a></p>
+                        <p class="chinese">传真：+86-21-6888 1236</p>
+                        <p class="english">Fax: +86-21-6888 1236</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="icon">✉️</i>
+                    </div>
+                    <div class="info-content">
+                        <h3 class="chinese">电子邮箱</h3>
+                        <h3 class="english">Email</h3>
+                        <p class="chinese">销售部门：<a href="mailto:sales@optics.com">sales@optics.com</a></p>
+                        <p class="english">Sales: <a href="mailto:sales@optics.com">sales@optics.com</a></p>
+                        <p class="chinese">技术支持：<a href="mailto:support@optics.com">support@optics.com</a></p>
+                        <p class="english">Technical Support: <a href="mailto:support@optics.com">support@optics.com</a></p>
+                        <p class="chinese">人力资源：<a href="mailto:hr@optics.com">hr@optics.com</a></p>
+                        <p class="english">HR: <a href="mailto:hr@optics.com">hr@optics.com</a></p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="icon">🕒</i>
+                    </div>
+                    <div class="info-content">
+                        <h3 class="chinese">工作时间</h3>
+                        <h3 class="english">Business Hours</h3>
+                        <p class="chinese">周一至周五：8:30 - 17:30</p>
+                        <p class="english">Monday - Friday: 8:30 - 17:30</p>
+                        <p class="chinese">周六：9:00 - 12:00</p>
+                        <p class="english">Saturday: 9:00 - 12:00</p>
+                        <p class="chinese">周日：休息</p>
+                        <p class="english">Sunday: Closed</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="icon">🌐</i>
+                    </div>
+                    <div class="info-content">
+                        <h3 class="chinese">在线联系</h3>
+                        <h3 class="english">Online Contact</h3>
+                        <p class="chinese">微信：Optics_Official</p>
+                        <p class="english">WeChat: Optics_Official</p>
+                        <p class="chinese">QQ：400-123-4567</p>
+                        <p class="english">QQ: 400-123-4567</p>
+                        <p class="chinese">在线客服：工作日实时在线</p>
+                        <p class="english">Online Support: Real-time on weekdays</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 联系表单 -->
+            <div class="contact-form">
+                <h2 class="chinese">发送消息</h2>
+                <h2 class="english">Send Message</h2>
+                <div class="success-message chinese" id="successMessage">
+                    感谢您的留言！我们会在24小时内回复您。
+                </div>
+                <div class="success-message english" id="successMessageEn">
+                    Thank you for your message! We will reply within 24 hours.
+                </div>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name" class="chinese">您的姓名 *</label>
+                        <label for="name" class="english">Your Name *</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company" class="chinese">公司名称</label>
+                        <label for="company" class="english">Company Name</label>
+                        <input type="text" id="company" name="company" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="chinese">电子邮箱 *</label>
+                        <label for="email" class="english">Email *</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="chinese">联系电话</label>
+                        <label for="phone" class="english">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject" class="chinese">主题 *</label>
+                        <label for="subject" class="english">Subject *</label>
+                        <select id="subject" name="subject" class="form-control" required>
+                            <option value="" class="chinese">请选择咨询主题</option>
+                            <option value="" class="english">Please select inquiry subject</option>
+                            <option value="product" class="chinese">产品咨询</option>
+                            <option value="product" class="english">Product Inquiry</option>
+                            <option value="quote" class="chinese">报价请求</option>
+                            <option value="quote" class="english">Quote Request</option>
+                            <option value="tech" class="chinese">技术支持</option>
+                            <option value="tech" class="english">Technical Support</option>
+                            <option value="cooperation" class="chinese">合作洽谈</option>
+                            <option value="cooperation" class="english">Cooperation</option>
+                            <option value="other" class="chinese">其他</option>
+                            <option value="other" class="english">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" class="chinese">详细内容 *</label>
+                        <label for="message" class="english">Detailed Content *</label>
+                        <textarea id="message" name="message" class="form-control chinese" required placeholder="请详细描述您的需求..."></textarea>
+                        <textarea id="message" name="message" class="form-control english" required placeholder="Please describe your needs in detail..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn chinese">发送消息</button>
+                    <button type="submit" class="submit-btn english">Send Message</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 地图区域 -->
+        <div class="map-section">
+            <h2 class="chinese">我们的位置</h2>
+            <h2 class="english">Our Location</h2>
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🗺️</div>
+                        <div class="chinese">上海市浦东新区张江高科技园区地图</div>
+                        <div class="english">Zhangjiang High-Tech Park, Shanghai Map</div>
+                        <div style="font-size: 0.9rem; margin-top: 10px; opacity: 0.8;" class="chinese">点击查看详细位置信息</div>
+                        <div style="font-size: 0.9rem; margin-top: 10px; opacity: 0.8;" class="english">Click to view detailed location information</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 公司信息 -->
+        <div class="company-info">
+            <h2 class="chinese">关于我们</h2>
+            <h2 class="english">About Us</h2>
+            <p class="chinese">我们是一家专业的光学产品制造商，致力于为客户提供高质量的光学晶体、偏振光学元件、光学镜头等产品。</p>
+            <p class="english">We are a professional optical product manufacturer, committed to providing customers with high-quality optical crystals, polarization optical components, optical lenses and other products.</p>
+            <p class="chinese">拥有先进的生产设备和专业的技术团队，产品广泛应用于科研、工业、医疗、通信等领域。</p>
+            <p class="english">With advanced production equipment and professional technical team, our products are widely used in scientific research, industry, medical, communication and other fields.</p>
+            <p class="chinese">期待与您建立长期合作关系，共同推动光学技术的发展。</p>
+            <p class="english">We look forward to establishing long-term cooperative relationships with you and jointly promoting the development of optical technology.</p>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+            const successMessageEn = document.getElementById('successMessageEn');
+            const langSwitch = document.getElementById('langSwitch');
+            let currentLang = 'chinese';
+
+            // 语言切换功能
+            langSwitch.addEventListener('click', function() {
+                const chineseElements = document.querySelectorAll('.chinese');
+                const englishElements = document.querySelectorAll('.english');
+                
+                if (currentLang === 'chinese') {
+                    chineseElements.forEach(el => el.style.display = 'none');
+                    englishElements.forEach(el => el.style.display = 'block');
+                    langSwitch.textContent = '中文';
+                    currentLang = 'english';
+                } else {
+                    chineseElements.forEach(el => el.style.display = 'block');
+                    englishElements.forEach(el => el.style.display = 'none');
+                    langSwitch.textContent = 'EN';
+                    currentLang = 'chinese';
+                }
+            });
+
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // 模拟表单提交
+                const formData = new FormData(contactForm);
+                console.log('表单数据:', Object.fromEntries(formData));
+                
+                // 显示成功消息
+                if (currentLang === 'chinese') {
+                    successMessage.style.display = 'block';
+                    successMessageEn.style.display = 'none';
+                } else {
+                    successMessage.style.display = 'none';
+                    successMessageEn.style.display = 'block';
+                }
+                
+                // 重置表单
+                contactForm.reset();
+                
+                // 3秒后隐藏成功消息
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                    successMessageEn.style.display = 'none';
+                }, 5000);
+            });
+
+            // 地图点击事件
+            const mapPlaceholder = document.querySelector('.map-placeholder');
+            mapPlaceholder.addEventListener('click', function() {
+                if (currentLang === 'chinese') {
+                    alert('这里可以集成百度地图或Google地图API');
+                } else {
+                    alert('Here you can integrate Baidu Maps or Google Maps API');
+                }
+            });
+
+            // 电话号码点击事件
+            document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const phoneNumber = this.getAttribute('href').replace('tel:', '');
+                    if (currentLang === 'chinese') {
+                        if (confirm(`是否要拨打 ${phoneNumber}？`)) {
+                            window.location.href = this.getAttribute('href');
+                        }
+                    } else {
+                        if (confirm(`Do you want to call ${phoneNumber}?`)) {
+                            window.location.href = this.getAttribute('href');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

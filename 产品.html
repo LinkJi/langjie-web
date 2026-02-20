@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品中心 / Product Center - 光学产品展示 / Optical Products Display</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5dc; /* 米黄色背景 */
+        }
+
+        /* 语言切换按钮 */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .lang-btn {
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #1a237e;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #1a237e;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: #1a237e;
+            color: white;
+        }
+
+        /* 头部样式 */
+        .products-header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .products-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .products-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 产品分类导航 */
+        .category-nav {
+            background: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        .category-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .category-btn {
+            padding: 10px 25px;
+            background: transparent;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: #1a237e;
+            color: white;
+            border-color: #1a237e;
+        }
+
+        /* 产品展示区域 */
+        .products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .category-section {
+            margin-bottom: 60px;
+            scroll-margin-top: 140px;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: #1a237e;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #1a237e;
+            text-align: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1a237e;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .product-features li {
+            padding: 5px 0;
+            font-size: 0.85rem;
+            color: #555;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .product-features li:before {
+            content: "•";
+            color: #1a237e;
+            position: absolute;
+            left: 0;
+        }
+
+        .product-link {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #1a237e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .product-link:hover {
+            background: #283593;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .products-header {
+                padding: 60px 0 30px;
+            }
+
+            .products-header h1 {
+                font-size: 2rem;
+            }
+
+            .category-title {
+                font-size: 1.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .category-container {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding: 0 20px;
+            }
+            
+            .language-switcher {
+                top: 10px;
+                right: 10px;
+            }
+        }
+
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1a237e;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+        
+        /* 语言特定样式 */
+        .lang-en {
+            display: none;
+        }
+        
+        .lang-zh .lang-zh {
+            display: block;
+        }
+        
+        .lang-zh .lang-en {
+            display: none;
+        }
+        
+        .lang-en .lang-en {
+            display: block;
+        }
+        
+        .lang-en .lang-zh {
+            display: none;
+        }
+    </style>
+</head>
+<body class="lang-zh">
+    <!-- 语言切换按钮 -->
+    <div class="language-switcher">
+        <button class="lang-btn" id="langZh">中文</button>
+        <button class="lang-btn" id="langEn">English</button>
+    </div>
+
+    <!-- 产品页面头部 -->
+    <header class="products-header">
+        <h1 class="lang-zh">光学产品中心</h1>
+        <h1 class="lang-en">Optical Product Center</h1>
+        <p class="lang-zh">专业光学解决方案，为您提供高质量的光学晶体、偏振光学元件及各类光学产品</p>
+        <p class="lang-en">Professional optical solutions, providing you with high-quality optical crystals, polarization optical components and various optical products</p>
+    </header>
+
+    <!-- 产品分类导航 -->
+    <nav class="category-nav">
+        <div class="category-container">
+            <button class="category-btn active" data-category="all">
+                <span class="lang-zh">全部产品</span>
+                <span class="lang-en">All Products</span>
+            </button>
+            <button class="category-btn" data-category="crystals">
+                <span class="lang-zh">光学晶体</span>
+                <span class="lang-en">Optical Crystals</span>
+            </button>
+            <button class="category-btn" data-category="polarization">
+                <span class="lang-zh">偏振光学</span>
+                <span class="lang-en">Polarization Optics</span>
+            </button>
+            <button class="category-btn" data-category="components">
+                <span class="lang-zh">光学元件</span>
+                <span class="lang-en">Optical Components</span>
+            </button>
+            <button class="category-btn" data-category="lenses">
+                <span class="lang-zh">光学镜头</span>
+                <span class="lang-en">Optical Lenses</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 产品展示容器 -->
+    <main class="products-container">
+        <!-- 光学晶体部分 -->
+        <section id="optical-crystals" class="category-section">
+            <h2 class="category-title lang-zh">光学晶体</h2>
+            <h2 class="category-title lang-en">Optical Crystals</h2>
+            <div class="products-grid">
+                <div class="product-card" data-category="crystals">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Nonlinear+Crystals" alt="Nonlinear Crystals">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name lang-zh">非线性晶体</h3>
+                        <h3 class="product-name lang-en">Nonlinear Crystals</h3>
+                        <p class="product-description lang-zh">高质量非线性光学晶体，用于频率转换和参量振荡</p>
+                        <p class="product-description lang-en">High-quality nonlinear optical crystals for frequency conversion and parametric oscillation</p>
+                        <ul class="product-features">
+                            <li class="lang-zh">高非线性系数</li>
+                            <li class="lang-en">High nonlinear coefficient</li>
+                            <li class="lang-zh">宽透射范围</li>
+                            <li class="lang-en">Wide transmission range</li>
+                            <li class="lang-zh">高损伤阈值</li>
+                            <li class="lang-en">High damage threshold</li>
+                            <li class="lang-zh">多种尺寸可选</li>
+                            <li class="lang-en">Multiple sizes available</li>
+                        </ul>
+                        <a href="#nonlinear-crystals" class="product-link">
+                            <span class="lang-zh">了解更多</span>
+                            <span class="lang-en">Learn More</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="crystals">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x200/2196F3/white?text=Laser+Crystals" alt="Laser Crystals">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name lang-zh">激光晶体</h3>
+                        <h3 class="product-name lang-en">Laser Crystals</h3>
+                        <p class="product-description lang-zh">高性能激光晶体，适用于各种激光应用</p>
+                        <p class="product-description lang-en">High-performance laser crystals for various laser applications</p>
+                        <ul class="product-features">
+                            <li class="lang-zh">高光学质量</li>
+                            <li class="lang-en">High optical quality</li>
+                            <li class="lang-zh">优异的热性能</li>
+                            <li class="lang-en">Excellent thermal performance</li>
+                            <li class="lang-zh">稳定的化学性质</li>
+                            <li class="lang-en">Stable chemical properties</li>
+                            <li class="lang-zh">可定制掺杂浓度</li>
+                            <li class="lang-en">Custom doping concentration</li>
+                        </ul>
+                        <a href="#laser-crystals" class="product-link">
+                            <span class="lang-zh">了解更多</span>
+                            <span class="lang-en">Learn More</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="crystals">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x200/FF9800/white?text=Birefringent+Crystals" alt="Birefringent Crystals">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name lang-zh">双折射晶体</h3>
+                        <h3 class="product-name lang-en">Birefringent Crystals</h3>
+                        <p class="product-description lang-zh">高质量双折射晶体，用于偏振控制和波片制造</p>
+                        <p class="product-description lang-en">High-quality birefringent crystals for polarization control and waveplate manufacturing</p>
+                        <ul class="product-features">
+                            <li class="lang-zh">高双折射率</li>
+                            <li class="lang-en">High birefringence</li>
+                            <li class="lang-zh">优异的光学均匀性</li>
+                            <li class="lang-en">Excellent optical uniformity</li>
+                            <li class="lang-zh">良好的机械性能</li>
+                            <li class="lang-en">Good mechanical properties</li>
+                            <li class="lang-zh">多种晶体材料</li>
+                            <li class="lang-en">Various crystal materials</li>
+                        </ul>
+                        <a href="#birefringent-crystals" class="product-link">
+                            <span class="lang-zh">了解更多</span>
+                            <span class="lang-en">Learn More</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="crystals">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x200/9C27B0/white?text=Acousto-optic+Crystals" alt="Acousto-optic Crystals">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name lang-zh">声光晶体</h3>
+                        <h3 class="product-name lang-en">Acousto-optic Crystals</h3>
+                        <p class="product-description lang-zh">高性能声光晶体，用于调制、偏转和Q开关应用</p>
+                        <p class="product-description lang-en">High-performance acousto-optic crystals for modulation, deflection and Q-switch applications</p>
+                        <ul class="product-features">
+                            <li class="lang-zh">高声光品质因数</li>
+                            <li class="lang-en">High acousto-optic figure of merit</li>
+                            <li class="lang-zh">低插入损耗</li>
+                            <li class="lang-en">Low insertion loss</li>
+                            <li class="lang-zh">高衍射效率</li>
+                            <li class="lang-en">High diffraction efficiency</li>
+                            <li class="lang-zh">宽带宽操作</li>
+                            <li class="lang-en">Wide bandwidth operation</li>
+                        </ul>
+                        <a href="#acousto-optic-crystals" class="product-link">
+                            <span class="lang-zh">了解更多</span>
+                            <span class="lang-en">Learn More</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 偏振光学部分 -->
+        <section id="polarization-optics" class="category-section">
+            <h2 class="category-title lang-zh">偏振光学</h2>
+            <h2 class="category-title lang-en">Polarization Optics</h2>
+            <div class="products-grid">
+                <div class="product-card" data-category="polarization">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Waveplates" alt="Waveplates">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name lang-zh">波片</h3>
+                        <h3 class="product-name lang-en">Waveplates</h3>
+                        <p class="product-description lang-zh">各种波长和延迟的波片，用于偏振态控制</p>
+                        <p class="product-description lang-en">Various wavelength and retardation waveplates for polarization state control</p>
+                        <ul class="product-features">
+                            <li class="lang-zh">零级和多级波片</li>
+                            <li class="lang-en">Zero-order and multi-order waveplates</li>
+                            <li class="lang-zh">宽波长范围</li>
+                            <li class="lang-en">Wide wavelength range</li>
+                            <li class="lang-zh">高消光比</li>
+                            <li class="lang-en">High extinction ratio</li>
+                            <li class="zh">可定制尺寸</li>
+                            <li class="lang-en">Customizable sizes</li>
+                        </ul>
+                        <a href="#waveplates" class="product-link">
+                            <span class="lang-zh">了解更多</span>
+                            <span class="lang-en">Learn More</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="polarization">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x200/2196F3/white?text=PBS+Prisms" alt="PBS Prisms">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name lang-zh">偏振分束棱镜</h3>
+                        <h3 class="product-name lang-en">PBS Prisms</h3>
+                        <p class="product-description lang-zh">偏振分束棱镜，高效分离S和P偏振光</p>
+                        <p class="product-description lang-en">Polarizing beam splitter prisms, efficiently separate S and P polarized light</p>
+                        <ul class="product-features">
+                            <li class="lang-zh">高消光比</li>
+                            <li class="lang-en">High extinction ratio</li>
+                            <li class="lang-zh">低波前畸变</li>
+                            <li class="lang-en">Low wavefront distortion</li>
+                            <li class="lang-zh">高损伤阈值</li>
+                            <li class="lang-en">High damage threshold</li>
+                            <li class="lang-zh">多种尺寸可选</li>
+                            <li class="lang-en">Multiple sizes available</li>
+                        </ul>
+                        <a href="#pbs-prisms" class="product-link">
+                            <span class="lang-zh">了解更多</span>
+                            <span class="lang-en">Learn More</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 光学元件部分 -->
+        <section id="optical-components" class="category-section">
+            <h2 class="category-title lang-zh">光学元件</h2>
+            <h2 class="category-title lang-en">Optical Components</h2>
+            <div class="products-grid">
+                <div class="product-card" data-category="components">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x200/FF9800/white?text=Lenses" alt="Lenses">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name lang-zh">透镜</h3>
+                        <h3 class="product-name lang-en">Lenses</h3>
+                        <p class="product-description lang-zh">各种类型的光学透镜，满足不同应用需求</p>
+                        <p class="product-description lang-en">Various types of optical lenses to meet different application needs</p>
+                        <ul class="product-features">
+                            <li class="lang-zh">球面和非球面透镜</li>
+                            <li class="lang-en">Spherical and aspherical lenses</li>
+                            <li class="lang-zh">多种焦距可选</li>
+                            <li class="lang-en">Multiple focal lengths available</li>
+                            <li class="lang-zh">高透过率</li>
+                            <li class="lang-en">High transmittance</li>
+                            <li class="lang-zh">多种镀膜选项</li>
+                            <li class="lang-en">Multiple coating options</li>
+                        </ul>
+                        <a href="#lenses" class="product-link">
+                            <span class="lang-zh">了解更多</span>
+                            <span class="lang-en">Learn More</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="components">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x200/9C27B0/white?text=Prisms" alt="Prisms">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name lang-zh">棱镜</h3>
+                        <h3 class="product-name lang-en">Prisms</h3>
+                        <p class="product-description lang-zh">高质量光学棱镜，用于光束转向和色散</p>
+                        <p class="product-description lang-en">High-quality optical prisms for beam steering and dispersion</p>
+                        <ul class="product-features">
+                            <li class="lang-zh">直角棱镜</li>
+                            <li class="lang-en">Right-angle prisms</li>
+                            <li class="lang-zh">五角棱镜</li>
+                            <li class="lang-en">Pentaprisms</li>
+                            <li class="lang-zh">道威棱镜</li>
+                            <li class="lang-en">Dove prisms</li>
+                            <li class="lang-zh">色散棱镜</li>
+                            <li class="lang-en">Dispersion prisms</li>
+                        </ul>
+                        <a href="#prisms" class="product-link">
+                            <span class="lang-zh">了解更多</span>
+                            <span class="lang-en">Learn More</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 光学镜头部分 -->
+        <section id="optical-lenses" class="category-section">
+            <h2 class="category-title lang-zh">光学镜头</h2>
+            <h2 class="category-title lang-en">Optical Lenses</h2>
+            <div class="products-grid">
+                <div class="product-card" data-category="lenses">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Industrial+Lenses" alt="Industrial Lenses">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name lang-zh">工业镜头</h3>
+                        <h3 class="product-name lang-en">Industrial Lenses</h3>
+                        <p class="product-description lang-zh">高性能工业镜头，用于机器视觉和检测系统</p>
+                        <p class="product-description lang-en">High-performance industrial lenses for machine vision and inspection systems</p>
+                        <ul class="product-features">
+                            <li class="lang-zh">高分辨率</li>
+                            <li class="lang-en">High resolution</li>
+                            <li class="lang-zh">低畸变</li>
+                            <li class="lang-en">Low distortion</li>
+                            <li class="lang-zh">多种接口选项</li>
+                            <li class="lang-en">Multiple interface options</li>
+                            <li class="lang-zh">坚固设计</li>
+                            <li class="lang-en">Robust design</li>
+                        </ul>
+                        <a href="#industrial-lenses" class="product-link">
+                            <span class="lang-zh">了解更多</span>
+                            <span class="lang-en">Learn More</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="lenses">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/300x200/2196F3/white?text=Automotive+Lenses" alt="Automotive Lenses">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name lang-zh">汽车镜头</h3>
+                        <h3 class="product-name lang-en">Automotive Lenses</h3>
+                        <p class="product-description lang-zh">高可靠性光学镜头，专为汽车应用设计</p>
+                        <p class="product-description lang-en">High-reliability optical lenses designed for automotive applications</p>
+                        <ul class="product-features">
+                            <li class="lang-zh">宽温度范围</li>
+                            <li class="lang-en">Wide temperature range</li>
+                            <li class="lang-zh">抗震设计</li>
+                            <li class="lang-en">Shock-resistant design</li>
+                            <li class="lang-zh">长寿命</li>
+                            <li class="lang-en">Long lifespan</li>
+                            <li class="lang-zh">符合汽车标准</li>
+                            <li class="lang-en">Compliant with automotive standards</li>
+                        </ul>
+                        <a href="#automotive-lenses" class="product-link">
+                            <span class="lang-zh">了解更多</span>
+                            <span class="lang-en">Learn More</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 回到顶部按钮 -->
+    <div class="back-to-top" id="backToTop">↑</div>
+
+    <script>
+        // 语言切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const langZhBtn = document.getElementById('langZh');
+            const langEnBtn = document.getElementById('langEn');
+            const body = document.body;
+            
+            // 中文按钮点击事件
+            langZhBtn.addEventListener('click', function() {
+                body.classList.remove('lang-en');
+                body.classList.add('lang-zh');
+            });
+            
+            // 英文按钮点击事件
+            langEnBtn.addEventListener('click', function() {
+                body.classList.remove('lang-zh');
+                body.classList.add('lang-en');
+            });
+            
+            // 分类筛选功能
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const productCards = document.querySelectorAll('.product-card');
+            const categorySections = document.querySelectorAll('.category-section');
+            
+            // 分类按钮点击事件
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    
+                    // 更新按钮状态
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 显示/隐藏产品
+                    if (category === 'all') {
+                        productCards.forEach(card => card.style.display = 'block');
+                        categorySections.forEach(section => section.style.display = 'block');
+                    } else {
+                        productCards.forEach(card => {
+                            if (card.dataset.category === category) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                        
+                        // 隐藏空分类区域
+                        categorySections.forEach(section => {
+                            const hasVisibleProducts = Array.from(section.querySelectorAll('.product-card'))
+                                .some(card => card.style.display !== 'none');
+                            section.style.display = hasVisibleProducts ? 'block' : 'none';
+                        });
+                    }
+                });
+            });
+            
+            // 回到顶部功能
+            const backToTop = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 平滑滚动到锚点
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

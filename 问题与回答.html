@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常见问题 - FAQ | 光学产品技术支持 - Optical Product Technical Support</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5dc; /* 米黄色背景 */
+        }
+
+        /* 头部样式 */
+        .faq-header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            padding: 100px 0 60px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .faq-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .faq-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 主要内容区域 */
+        .faq-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        /* 搜索区域 */
+        .search-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .search-section h2 {
+            color: #1a237e;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #1a237e;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        /* 分类导航 */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .category-btn {
+            padding: 12px 25px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: #1a237e;
+            color: white;
+            border-color: #1a237e;
+        }
+
+        /* 问题分类区域 */
+        .category-section {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            color: #1a237e;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1a237e;
+            display: flex;
+            align-items: center;
+        }
+
+        .category-icon {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        /* FAQ项目 */
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+
+        .faq-question {
+            padding: 20px 60px 20px 25px;
+            cursor: pointer;
+            position: relative;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #333;
+            background: white;
+            border: none;
+            width: 100%;
+            text-align: left;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #f8f9ff;
+        }
+
+        .faq-question::after {
+            content: '+';
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #1a237e;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            content: '-';
+            transform: translateY(-50%) rotate(0deg);
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 25px;
+            max-height: 1000px;
+        }
+
+        .faq-answer p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .faq-answer p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-answer ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .faq-answer li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        /* 技术支持区域 */
+        .support-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .support-section h2 {
+            color: #1a237e;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .support-section p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .support-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .support-btn {
+            padding: 15px 30px;
+            background: #1a237e;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .support-btn:hover {
+            background: #283593;
+            color: white;
+        }
+
+        .support-btn.secondary {
+            background: transparent;
+            color: #1a237e;
+            border: 2px solid #1a237e;
+        }
+
+        .support-btn.secondary:hover {
+            background: #1a237e;
+            color: white;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .faq-header {
+                padding: 80px 0 40px;
+            }
+
+            .faq-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .category-nav {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+
+            .faq-question {
+                padding: 18px 50px 18px 20px;
+                font-size: 1rem;
+            }
+
+            .support-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .support-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+
+        /* 无结果提示 */
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            display: none;
+        }
+
+        .no-results .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* 语言切换 */
+        .lang-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 5px 10px;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .english {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 语言切换按钮 -->
+    <div class="lang-switch" id="langSwitch">EN</div>
+
+    <!-- FAQ页面头部 -->
+    <header class="faq-header">
+        <h1 class="chinese">常见问题解答</h1>
+        <h1 class="english">Frequently Asked Questions</h1>
+        <p class="chinese">在这里找到关于我们光学产品的常见问题和技术支持信息</p>
+        <p class="english">Find common questions and technical support information about our optical products here</p>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="faq-container">
+        <!-- 搜索区域 -->
+        <section class="search-section">
+            <h2 class="chinese">需要帮助？搜索您的问题</h2>
+            <h2 class="english">Need help? Search your question</h2>
+            <div class="search-box">
+                <input type="text" class="search-input chinese" placeholder="输入关键词搜索问题...">
+                <input type="text" class="search-input english" placeholder="Enter keywords to search questions...">
+                <span class="search-icon">🔍</span>
+            </div>
+        </section>
+
+        <!-- 分类导航 -->
+        <nav class="category-nav">
+            <button class="category-btn active" data-category="all">
+                <span class="chinese">全部问题</span>
+                <span class="english">All Questions</span>
+            </button>
+            <button class="category-btn" data-category="product">
+                <span class="chinese">产品相关</span>
+                <span class="english">Product Related</span>
+            </button>
+            <button class="category-btn" data-category="technical">
+                <span class="chinese">技术问题</span>
+                <span class="english">Technical Issues</span>
+            </button>
+            <button class="category-btn" data-category="purchase">
+                <span class="chinese">购买咨询</span>
+                <span class="english">Purchase Inquiry</span>
+            </button>
+            <button class="category-btn" data-category="shipping">
+                <span class="chinese">配送安装</span>
+                <span class="english">Shipping & Installation</span>
+            </button>
+            <button class="category-btn" data-category="warranty">
+                <span class="chinese">保修服务</span>
+                <span class="english">Warranty Service</span>
+            </button>
+        </nav>
+
+        <!-- 无结果提示 -->
+        <div class="no-results" id="noResults">
+            <span class="icon">😕</span>
+            <h3 class="chinese">没有找到相关问题</h3>
+            <h3 class="english">No related questions found</h3>
+            <p class="chinese">请尝试使用其他关键词搜索，或联系我们的技术支持团队</p>
+            <p class="english">Please try searching with other keywords, or contact our technical support team</p>
+        </div>
+
+        <!-- 产品相关问题 -->
+        <section class="category-section" data-category="product">
+            <h2 class="category-title">
+                <span class="category-icon">📦</span>
+                <span class="chinese">产品相关问题</span>
+                <span class="english">Product Related Questions</span>
+            </h2>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span class="chinese">光学晶体有哪些主要类型和应用领域？</span>
+                    <span class="english">What are the main types and application fields of optical crystals?</span>
+                </button>
+                <div class="faq-answer">
+                    <p class="chinese">我们的光学晶体主要分为以下几类：</p>
+                    <p class="english">Our optical crystals are mainly divided into the following categories:</p>
+                    <ul>
+                        <li class="chinese"><strong>非线性晶体</strong>：用于频率转换、参量振荡、倍频等应用</li>
+                        <li class="english"><strong>Nonlinear crystals</strong>: Used for frequency conversion, parametric oscillation, frequency doubling and other applications</li>
+                        <li class="chinese"><strong>激光晶体</strong>：适用于各种固体激光器，如Nd:YAG、Yb:YAG等</li>
+                        <li class="english"><strong>Laser crystals</strong>: Suitable for various solid-state lasers, such as Nd:YAG, Yb:YAG, etc.</li>
+                        <li class="chinese"><strong>双折射晶体</strong>：用于制造波片、偏振棱镜等偏振光学元件</li>
+                        <li class="english"><strong>Birefringent crystals</strong>: Used to manufacture wave plates, polarizing prisms and other polarization optical components</li>
+                        <li class="chinese"><strong>声光晶体</strong>：应用于调制器、偏转器等声光器件</li>
+                        <li class="english"><strong>Acousto-optic crystals</strong>: Applied to acousto-optic devices such as modulators and deflectors</li>
+                    </ul>
+                    <p class="chinese">这些晶体广泛应用于激光加工、医疗设备、科研仪器、通信系统等领域。</p>
+                    <p class="english">These crystals are widely used in laser processing, medical equipment, scientific research instruments, communication systems and other fields.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span class="chinese">如何选择适合我需求的光学镜头？</span>
+                    <span class="english">How to choose the right optical lens for my needs?</span>
+                </button>
+                <div class="faq-answer">
+                    <p class="chinese">选择光学镜头时需要考虑以下几个关键因素：</p>
+                    <p class="english">When selecting optical lenses, the following key factors need to be considered:</p>
+                    <ul>
+                        <li class="chinese"><strong>焦距</strong>：根据成像距离和视场角要求选择</li>
+                        <li class="english"><strong>Focal length</strong>: Selected based on imaging distance and field of view requirements</li>
+                        <li class="chinese"><strong>光圈</strong>：影响进光量和景深</li>
+                        <li class="english"><strong>Aperture</strong>: Affects the amount of light entering and depth of field</li>
+                        <li class="chinese"><strong>分辨率</strong>：根据检测精度要求确定</li>
+                        <li class="english"><strong>Resolution</strong>: Determined based on detection accuracy requirements</li>
+                        <li class="chinese"><strong>工作波段</strong>：确保镜头在所需光谱范围内有良好透过率</li>
+                        <li class="english"><strong>Working wavelength</strong>: Ensure the lens has good transmittance in the required spectral range</li>
+                        <li class="chinese"><strong>接口类型</strong>：与相机接口匹配</li>
+                        <li class="english"><strong>Interface type</strong>: Matches the camera interface</li>
+                    </ul>
+                    <p class="chinese">建议提供您的具体应用场景和技术要求，我们的技术团队会为您推荐最适合的产品。</p>
+                    <p class="english">It is recommended to provide your specific application scenarios and technical requirements, and our technical team will recommend the most suitable products for you.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技术问题 -->
+        <section class="category-section" data-category="technical">
+            <h2 class="category-title">
+                <span class="category-icon">🔧</span>
+                <span class="chinese">技术问题</span>
+                <span class="english">Technical Issues</span>
+            </h2>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span class="chinese">光学元件如何进行日常清洁和维护？</span>
+                    <span class="english">How to perform daily cleaning and maintenance of optical components?</span>
+                </button>
+                <div class="faq-answer">
+                    <p class="chinese">光学元件的清洁和维护需要特别注意：</p>
+                    <p class="english">Special attention is required for cleaning and maintenance of optical components:</p>
+                    <ul>
+                        <li class="chinese">使用专用的光学清洁工具，如吹气球、光学棉签、无尘布</li>
+                        <li class="english">Use special optical cleaning tools, such as air blowers, optical cotton swabs, and lint-free cloths</li>
+                        <li class="chinese">按照正确的清洁顺序：先吹气除尘，再用溶剂清洁</li>
+                        <li class="english">Follow the correct cleaning sequence: first blow off dust with air, then clean with solvent</li>
+                        <li class="chinese">使用高纯度溶剂，如无水乙醇、丙酮（注意材料兼容性）</li>
+                        <li class="english">Use high-purity solvents, such as absolute ethanol, acetone (pay attention to material compatibility)</li>
+                        <li class="chinese">避免用手直接触摸光学表面</li>
+                        <li class="english">Avoid touching optical surfaces directly with hands</li>
+                        <li class="chinese">存储在恒温恒湿环境中，避免温度剧烈变化</li>
+                        <li class="english">Store in a constant temperature and humidity environment, avoid drastic temperature changes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 购买咨询 -->
+        <section class="category-section" data-category="purchase">
+            <h2 class="category-title">
+                <span class="category-icon">💰</span>
+                <span class="chinese">购买咨询</span>
+                <span class="english">Purchase Inquiry</span>
+            </h2>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span class="chinese">如何获取产品报价和采购流程？</span>
+                    <span class="english">How to get product quotes and what is the procurement process?</span>
+                </button>
+                <div class="faq-answer">
+                    <p class="chinese">我们的采购流程如下：</p>
+                    <p class="english">Our procurement process is as follows:</p>
+                    <ol>
+                        <li class="chinese">提供产品型号、规格和数量要求</li>
+                        <li class="english">Provide product model, specifications and quantity requirements</li>
+                        <li class="chinese">我们的销售团队将在24小时内提供详细报价</li>
+                        <li class="english">Our sales team will provide detailed quotes within 24 hours</li>
+                        <li class="chinese">确认报价后签订采购合同</li>
+                        <li class="english">Sign procurement contract after confirming the quote</li>
+                        <li class="chinese">支付预付款（通常为30-50%）</li>
+                        <li class="english">Pay advance payment (usually 30-50%)</li>
+                        <li class="chinese">安排生产或发货</li>
+                        <li class="english">Arrange production or shipment</li>
+                        <li class="chinese">支付尾款，完成交易</li>
+                        <li class="english">Pay the balance to complete the transaction</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技术支持区域 -->
+        <section class="support-section">
+            <h2 class="chinese">没有找到您需要的答案？</h2>
+            <h2 class="english">Didn't find the answer you need?</h2>
+            <p class="chinese">我们的技术支持团队随时为您提供帮助</p>
+            <p class="english">Our technical support team is always ready to help you</p>
+            <div class="support-buttons">
+                <a href="contact.html" class="support-btn">
+                    <span class="chinese">联系技术支持</span>
+                    <span class="english">Contact Technical Support</span>
+                </a>
+                <a href="tel:+86-21-68881235" class="support-btn secondary">
+                    <span class="chinese">📞 立即致电</span>
+                    <span class="english">📞 Call Now</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const searchInputs = document.querySelectorAll('.search-input');
+            const noResults = document.getElementById('noResults');
+            const langSwitch = document.getElementById('langSwitch');
+            let currentLang = 'chinese';
+
+            // FAQ展开/收起功能
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // 关闭所有其他项目
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // 切换当前项目
+                    item.classList.toggle('active', !isActive);
+                });
+            });
+
+            // 分类筛选功能
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.getAttribute('data-category');
+                    
+                    // 更新激活按钮
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // 显示/隐藏分类
+                    document.querySelectorAll('.category-section').forEach(section => {
+                        if (category === 'all' || section.getAttribute('data-category') === category) {
+                            section.style.display = 'block';
+                        } else {
+                            section.style.display = 'none';
+                        }
+                    });
+                    
+                    // 检查是否有可见内容
+                    checkVisibleContent();
+                });
+            });
+
+            // 搜索功能
+            searchInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    let hasResults = false;
+                    
+                    faqItems.forEach(item => {
+                        const question = item.querySelector('.faq-question');
+                        const questionText = question.textContent.toLowerCase();
+                        const answer = item.querySelector('.faq-answer');
+                        const answerText = answer.textContent.toLowerCase();
+                        
+                        if (questionText.includes(searchTerm) || answerText.includes(searchTerm)) {
+                            item.style.display = 'block';
+                            hasResults = true;
+                            
+                            // 高亮匹配文本
+                            if (searchTerm) {
+                                highlightText(item, searchTerm);
+                            }
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                    
+                    // 显示/隐藏无结果提示
+                    noResults.style.display = hasResults ? 'none' : 'block';
+                });
+            });
+
+            // 检查可见内容
+            function checkVisibleContent() {
+                let hasVisibleItems = false;
+                
+                document.querySelectorAll('.category-section').forEach(section => {
+                    if (section.style.display !== 'none') {
+                        const visibleItems = section.querySelectorAll('.faq-item[style="display: block"], .faq-item:not([style])');
+                        if (visibleItems.length > 0) {
+                            hasVisibleItems = true;
+                        }
+                    }
+                });
+                
+                noResults.style.display = hasVisibleItems ? 'none' : 'block';
+            }
+
+            // 文本高亮函数
+            function highlightText(element, searchTerm) {
+                // 简化版高亮实现
+                element.style.backgroundColor = searchTerm ? '#fff9c4' : '';
+            }
+
+            // 语言切换功能
+            langSwitch.addEventListener('click', function() {
+                const chineseElements = document.querySelectorAll('.chinese');
+                const englishElements = document.querySelectorAll('.english');
+                
+                if (currentLang === 'chinese') {
+                    chineseElements.forEach(el => el.style.display = 'none');
+                    englishElements.forEach(el => el.style.display = 'block');
+                    langSwitch.textContent = '中文';
+                    currentLang = 'english';
+                } else {
+                    chineseElements.forEach(el => el.style.display = 'block');
+                    englishElements.forEach(el => el.style.display = 'none');
+                    langSwitch.textContent = 'EN';
+                    currentLang = 'chinese';
+                }
+            });
+
+            // 初始化检查
+            checkVisibleContent();
+        });
+    </script>
+</body>
+</html>
