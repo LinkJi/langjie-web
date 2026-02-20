@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -271,15 +272,10 @@
             opacity: 1;
         }
         
-        /* 语言特定样式 */
-        .lang-en {
-            display: none;
-        }
-        
+        /* 语言特定样式 - 修复英文显示问题 */
         .lang-zh .lang-zh {
             display: block;
         }
-        
         .lang-zh .lang-en {
             display: none;
         }
@@ -287,9 +283,20 @@
         .lang-en .lang-en {
             display: block;
         }
-        
         .lang-en .lang-zh {
             display: none;
+        }
+
+        /* 针对行内块和内联元素的修正 */
+        .category-btn span, 
+        .product-link span,
+        h1 span, p span, h2 span, h3 span {
+            display: inline-block;  /* 确保内联元素也能正确切换 */
+        }
+        /* 确保产品特性列表项也受控制 */
+        .product-features li.lang-zh,
+        .product-features li.lang-en {
+            display: block;         /* 还原li原本的display，同时受语言类控制 */
         }
     </style>
 </head>
@@ -343,7 +350,7 @@
             <div class="products-grid">
                 <div class="product-card" data-category="crystals">
                     <div class="product-image">
-                        <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Nonlinear+Crystals" alt="Nonlinear Crystals">
+                        <img src="光学晶体" alt="Nonlinear Crystals">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name lang-zh">非线性晶体</h3>
@@ -369,7 +376,7 @@
 
                 <div class="product-card" data-category="crystals">
                     <div class="product-image">
-                        <img src="https://via.placeholder.com/300x200/2196F3/white?text=Laser+Crystals" alt="Laser Crystals">
+                        <img src="光学晶体.jpg" alt="Laser Crystals">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name lang-zh">激光晶体</h3>
@@ -395,7 +402,7 @@
 
                 <div class="product-card" data-category="crystals">
                     <div class="product-image">
-                        <img src="https://via.placeholder.com/300x200/FF9800/white?text=Birefringent+Crystals" alt="Birefringent Crystals">
+                        <img src="光学晶体" alt="Birefringent Crystals">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name lang-zh">双折射晶体</h3>
@@ -421,7 +428,7 @@
 
                 <div class="product-card" data-category="crystals">
                     <div class="product-image">
-                        <img src="https://via.placeholder.com/300x200/9C27B0/white?text=Acousto-optic+Crystals" alt="Acousto-optic Crystals">
+                        <img src="光学晶体.jpg" alt="Acousto-optic Crystals">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name lang-zh">声光晶体</h3>
@@ -454,7 +461,7 @@
             <div class="products-grid">
                 <div class="product-card" data-category="polarization">
                     <div class="product-image">
-                        <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Waveplates" alt="Waveplates">
+                        <img src="玻片jpg" alt="Waveplates">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name lang-zh">波片</h3>
@@ -468,7 +475,7 @@
                             <li class="lang-en">Wide wavelength range</li>
                             <li class="lang-zh">高消光比</li>
                             <li class="lang-en">High extinction ratio</li>
-                            <li class="zh">可定制尺寸</li>
+                            <li class="lang-zh">可定制尺寸</li>   <!-- 原html此处误写为 <li class="zh">，已修正 -->
                             <li class="lang-en">Customizable sizes</li>
                         </ul>
                         <a href="#waveplates" class="product-link">
@@ -480,7 +487,7 @@
 
                 <div class="product-card" data-category="polarization">
                     <div class="product-image">
-                        <img src="https://via.placeholder.com/300x200/2196F3/white?text=PBS+Prisms" alt="PBS Prisms">
+                        <img src="偏振器.jpg" alt="PBS Prisms">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name lang-zh">偏振分束棱镜</h3>
@@ -513,7 +520,7 @@
             <div class="products-grid">
                 <div class="product-card" data-category="components">
                     <div class="product-image">
-                        <img src="https://via.placeholder.com/300x200/FF9800/white?text=Lenses" alt="Lenses">
+                        <img src="透镜.jpg" alt="Lenses">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name lang-zh">透镜</h3>
@@ -539,7 +546,7 @@
 
                 <div class="product-card" data-category="components">
                     <div class="product-image">
-                        <img src="https://via.placeholder.com/300x200/9C27B0/white?text=Prisms" alt="Prisms">
+                        <img src="棱镜.jpg" alt="Prisms">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name lang-zh">棱镜</h3>
@@ -572,7 +579,7 @@
             <div class="products-grid">
                 <div class="product-card" data-category="lenses">
                     <div class="product-image">
-                        <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Industrial+Lenses" alt="Industrial Lenses">
+                        <img src="工业镜头.jpg" alt="Industrial Lenses">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name lang-zh">工业镜头</h3>
@@ -598,7 +605,7 @@
 
                 <div class="product-card" data-category="lenses">
                     <div class="product-image">
-                        <img src="https://via.placeholder.com/300x200/2196F3/white?text=Automotive+Lenses" alt="Automotive Lenses">
+                        <img src="镜头.jpg" alt="Automotive Lenses">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name lang-zh">汽车镜头</h3>
